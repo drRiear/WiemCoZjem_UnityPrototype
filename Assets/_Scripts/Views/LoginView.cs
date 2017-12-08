@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LogoView : View
+public class LoginView : View
 {
     void Awake()
     {

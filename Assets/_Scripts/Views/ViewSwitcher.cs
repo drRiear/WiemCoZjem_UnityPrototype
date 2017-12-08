@@ -5,19 +5,19 @@ using System.Linq;
 public class ViewSwitcher : MonoBehaviour
 {
     #region Singleton Implement.
-    private static ViewSwitcher characterManager;
+    private static ViewSwitcher viewSwitcher;
     public static ViewSwitcher Instance
     {
         get
         {
-            if (!characterManager)
+            if (!viewSwitcher)
             {
-                characterManager = FindObjectOfType(typeof(ViewSwitcher)) as ViewSwitcher;
+                viewSwitcher = FindObjectOfType(typeof(ViewSwitcher)) as ViewSwitcher;
 
-                if (!characterManager)
-                    Debug.LogError("There needs to be one active CharacterManager script on a GameObject in your scene.");
+                if (!viewSwitcher)
+                    Debug.LogError("There needs to be one active ViewSwitcher script on a GameObject in your scene.");
             }
-            return characterManager;
+            return viewSwitcher;
         }
     }
     #endregion
@@ -40,7 +40,7 @@ public class ViewSwitcher : MonoBehaviour
         }
         
 
-        activeView = views[1];
+        activeView = views[0];
         activeView.Show();
     }
 
