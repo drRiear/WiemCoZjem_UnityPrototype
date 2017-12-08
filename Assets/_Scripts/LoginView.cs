@@ -6,9 +6,7 @@ using System.Linq;
 public class LoginView : View {
     [SerializeField] Button loginButton;
     [SerializeField] Button searchButton;
-
-    [SerializeField] View nextView;
-
+    
     void Awake()
     {
         loginButton.onClick.AddListener(LoginButtonHandler);

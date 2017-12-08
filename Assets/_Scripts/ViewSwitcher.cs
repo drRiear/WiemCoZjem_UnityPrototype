@@ -22,8 +22,8 @@ public class ViewSwitcher : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] List<GameObject> viewsPrefabs;
     [SerializeField] Transform viewsContainer;
+    [SerializeField] List<GameObject> viewsPrefabs;
 
     [SerializeField] private List<View> views;
     private View activeView;
