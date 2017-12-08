@@ -6,12 +6,21 @@ public abstract class View : MonoBehaviour
 {
     public void Setup()
     {
-        //doit parent logic
         OnSetup();
     }
 
     protected abstract void OnSetup();
 
-    public void Show() { }
-    public void Hide() { }
+    public virtual void Show()
+    {
+        print("Show " + name);
+        gameObject.SetActive(true);
+    }
+    public virtual void Hide()
+    {
+        print("Hide " + name);
+        gameObject.SetActive(false);
+    }
+
+
 }

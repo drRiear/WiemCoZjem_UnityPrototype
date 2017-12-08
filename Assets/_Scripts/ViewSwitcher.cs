@@ -4,20 +4,44 @@ using System.Linq;
 
 public class ViewSwitcher : MonoBehaviour
 {
-    [SerializeField] List<View> viewsPrefabs;
-    [SerializeField] List<View> views;
+    #region Singleton Implement.
+    private static ViewSwitcher characterManager;
+    public static ViewSwitcher Instance
+    {
+        get
+        {
+            if (!characterManager)
+            {
+                characterManager = FindObjectOfType(typeof(ViewSwitcher)) as ViewSwitcher;
+
+                if (!characterManager)
+                    Debug.LogError("There needs to be one active CharacterManager script on a GameObject in your scene.");
+            }
+            return characterManager;
+        }
+    }
+    #endregion
+
+    [SerializeField] List<GameObject> viewsPrefabs;
     [SerializeField] Transform viewsContainer;
 
-    View activeView;
+    [SerializeField] private List<View> views;
+    private View activeView;
 
     void Awake()
     {
-        foreach(var view in viewsPrefabs)
+        foreach(var viewPrefab in viewsPrefabs)
         {
-            var newView = Instantiate(view);
+            var newView = Instantiate(viewPrefab);
             newView.transform.SetParent(viewsContainer, false);
-            newView.Setup();
+            var viewComponent = newView.GetComponent<View>();
+            viewComponent.Setup();
+            views.Add(newView.GetComponent<View>());
         }
+        
+
+        activeView = views[1];
+        activeView.Show();
     }
 
     public void ShowView<T>() where T : View
@@ -31,6 +55,5 @@ public class ViewSwitcher : MonoBehaviour
         {
             Debug.LogWarning("View not found");
         }
-        
     }
 }
