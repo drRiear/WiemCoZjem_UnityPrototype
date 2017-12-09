@@ -22,11 +22,17 @@ public class UserInfo : MonoBehaviour {
     }
     #endregion
 
-    [SerializeField]public string login;
-    [SerializeField]public string password;
+    public List<LoginData> loginDB;
 
-    [SerializeField]public string fullName;
+    public LoginData currentUser;
 
-    [SerializeField]public bool loggined;
+}
 
+[System.Serializable]
+public class LoginData
+{
+    public string login;
+    public string password;
+
+    public string fullName;
 }

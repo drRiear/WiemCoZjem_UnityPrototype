@@ -36,10 +36,9 @@ public class ViewSwitcher : MonoBehaviour
             newView.transform.SetParent(viewsContainer, false);
             var viewComponent = newView.GetComponent<View>();
             viewComponent.Setup();
-            views.Add(newView.GetComponent<View>());
+            views.Add(viewComponent);
         }
         
-
         activeView = views[0];
         activeView.Show();
     }
@@ -51,6 +50,7 @@ public class ViewSwitcher : MonoBehaviour
         {
             activeView.Hide();
             view.Show();
+            activeView = view;
         }else
         {
             Debug.LogWarning("View not found");
