@@ -5,6 +5,7 @@ using System.Linq;
 
 public class MainView : View {
     [SerializeField] Button searchButton;
+    [SerializeField] Text helloText;
     
     void Awake()
     {
@@ -18,15 +19,20 @@ public class MainView : View {
 
     protected override void OnSetup()
     {
-        Debug.Log("onSetup view: " + name);
     }
     public override void Show()
     {
         base.Show();
+        helloText.text += UserInfo.Instance.currentUser.fullName;
 
     }
     public override void Hide()
     {
         base.Hide();
+    }
+
+    public void ToLogin()
+    {
+        ViewSwitcher.Instance.ShowView<LoginView>();
     }
 }

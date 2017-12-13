@@ -8,6 +8,7 @@ public class LoginManager : MonoBehaviour {
     #region Private Vars
     private string _login;
     private string _password;
+    private bool errorVisible;
     #endregion
 
     #region Private Serializable Vars
@@ -51,24 +52,22 @@ public class LoginManager : MonoBehaviour {
                 }
                 else
                 {
-                    passInput.Select();
-                    ShowLoginError("Wrong password");
+                    if(!errorVisible)
+                        StartCoroutine(ShowLoginError("Wrong login or password."));
                     break;
                 }
-            }
-            else
-            {
-                loginInput.Select();
-                ShowLoginError("Wrong login");
-                continue;
             }
         }
     }
 
-    private void ShowLoginError(string error)
+    private IEnumerator ShowLoginError(string error)
     {
+        errorVisible = true;
         wrongData.GetComponentInChildren<Text>().text = error;
         wrongData.SetActive(true);
+        yield return new WaitForSeconds(3.0f);
+        wrongData.SetActive(false);
+        errorVisible = false;
     }
     #endregion
 }

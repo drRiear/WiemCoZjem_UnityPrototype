@@ -13,12 +13,10 @@ public abstract class View : MonoBehaviour
 
     public virtual void Show()
     {
-        print("Show " + name);
         gameObject.SetActive(true);
     }
     public virtual void Hide()
     {
-        print("Hide " + name);
         gameObject.SetActive(false);
     }
 

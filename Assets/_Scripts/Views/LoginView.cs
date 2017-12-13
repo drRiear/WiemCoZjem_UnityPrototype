@@ -11,7 +11,6 @@ public class LoginView : View
 
     protected override void OnSetup()
     {
-        Debug.Log("onSetup view: " + name);
     }
 
     public override void Show()

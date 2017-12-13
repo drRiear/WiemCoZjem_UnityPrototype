@@ -26,6 +26,8 @@ public class ViewSwitcher : MonoBehaviour
     [SerializeField] List<GameObject> viewsPrefabs;
 
     [SerializeField] private List<View> views;
+    [SerializeField] private int startViewIndex;
+
     private View activeView;
 
     void Awake()
@@ -39,7 +41,7 @@ public class ViewSwitcher : MonoBehaviour
             views.Add(viewComponent);
         }
         
-        activeView = views[0];
+        activeView = views[startViewIndex];
         activeView.Show();
     }
 
