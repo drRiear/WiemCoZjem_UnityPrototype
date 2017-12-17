@@ -4,35 +4,34 @@ using UnityEngine.UI;
 using System.Linq;
 
 public class MainView : View {
+
+    #region Serializable Variables
     [SerializeField] Button searchButton;
+    [SerializeField] Button loginButton;
     [SerializeField] Text helloText;
-    
-    void Awake()
+    #endregion
+
+    #region Unity Events
+    private void Awake()
     {
         searchButton.onClick.AddListener(SearchButtonHandler);
+        loginButton.onClick.AddListener(LoginButtonHandler);
     }
-    
-    void SearchButtonHandler()
+    private void OnEnable()
+    {
+        helloText.text = "Hello " + UserInfo.Instance.currentUser.fullName;
+    }
+    #endregion
+
+    #region Private Methods
+    private void SearchButtonHandler()
     {
         ViewSwitcher.Instance.ShowView<SearchView>();
     }
 
-    protected override void OnSetup()
-    {
-    }
-    public override void Show()
-    {
-        base.Show();
-        helloText.text += UserInfo.Instance.currentUser.fullName;
-
-    }
-    public override void Hide()
-    {
-        base.Hide();
-    }
-
-    public void ToLogin()
+    private void LoginButtonHandler()
     {
         ViewSwitcher.Instance.ShowView<LoginView>();
     }
+    #endregion
 }

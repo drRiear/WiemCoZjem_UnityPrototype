@@ -34,10 +34,8 @@ public class ViewSwitcher : MonoBehaviour
     {
         foreach(var viewPrefab in viewsPrefabs)
         {
-            var newView = Instantiate(viewPrefab);
-            newView.transform.SetParent(viewsContainer, false);
+            var newView = Instantiate(viewPrefab, viewsContainer);
             var viewComponent = newView.GetComponent<View>();
-            viewComponent.Setup();
             views.Add(viewComponent);
         }
         
@@ -53,7 +51,8 @@ public class ViewSwitcher : MonoBehaviour
             activeView.Hide();
             view.Show();
             activeView = view;
-        }else
+        }
+        else
         {
             Debug.LogWarning("View not found");
         }

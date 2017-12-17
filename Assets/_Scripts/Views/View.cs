@@ -6,10 +6,7 @@ public abstract class View : MonoBehaviour
 {
     public void Setup()
     {
-        OnSetup();
     }
-
-    protected abstract void OnSetup();
 
     public virtual void Show()
     {

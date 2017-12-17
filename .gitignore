@@ -53,3 +53,4 @@ log-*
 [Tt]humbs.db.meta
 /.vs
 CryptographicExceptions/
+db/
