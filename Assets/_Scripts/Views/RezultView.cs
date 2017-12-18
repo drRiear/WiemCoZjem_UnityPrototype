@@ -11,16 +11,28 @@ public class RezultView : View
     private Dishes.Item dish;
     private Specifics.RootObject specifics;
     private Places.RootObject places;
+
     [HideInInspector] public RezultViewChild selectedChild;
+    private SortingState sortingState = 0;
+    private List<GameObject> displayedChilds = new List<GameObject>();
     #endregion
 
     #region Serializable Variables
     [SerializeField] private RawImage mainImage;
+    [Header("Buttons")]
     [SerializeField] private Button toMapButton;
+    [SerializeField] private Button toDescriptionButton;
+    [Header("Sorting")]
+    [SerializeField] private Text sortingText;
+    [SerializeField] private Button sortingButton;
     [Header("Child")]
     [SerializeField]
     private GameObject childPrefab;
     [SerializeField] private Transform childContainer;
+    #endregion
+
+    #region Enumerators
+    enum SortingState { name, adress, price, distance };
     #endregion
 
     #region Unity Events
@@ -33,7 +45,10 @@ public class RezultView : View
 
         Search();
 
-        toMapButton.onClick.AddListener(delegate { ShowMap(); });
+        sortingButton.onClick.AddListener(Sort);
+
+        toMapButton.onClick.AddListener(ShowMap);
+        toDescriptionButton.onClick.AddListener(delegate { ViewSwitcher.Instance.ShowView<DishDescriptionView>(); });
     }
     #endregion
 
@@ -53,17 +68,19 @@ public class RezultView : View
     private void ShowInfo(Specifics.Item specificsItem)
     {
         var displayedChild = Instantiate(childPrefab, childContainer);
-        var childData = displayedChild.GetComponent<RezultViewChild>();
+        var childComponents = displayedChild.GetComponent<RezultViewChild>();
         var currentPlace = FindCurrentPlace(specificsItem.placeID);
 
-        childData.PriceText.text = specificsItem.price + "zł.";
-        childData.NameText.text = currentPlace.name;
-        childData.AdressText.text = currentPlace.adress;
+        childComponents.PriceText.text = specificsItem.price + "zł.";
+        childComponents.NameText.text = currentPlace.name;
+        childComponents.AdressText.text = currentPlace.adress;
 
+        displayedChild.name = currentPlace.name;
+
+        displayedChilds.Add(displayedChild);
         displayedChild.GetComponentInChildren<Button>().onClick
-            .AddListener(delegate { SetSelected(childData, currentPlace); });
+            .AddListener(delegate { SetSelected(childComponents, currentPlace); });
     }
-
     private Places.Item FindCurrentPlace(string placeID)
     {
         foreach (var placesItem in places.items)
@@ -71,17 +88,52 @@ public class RezultView : View
                 return placesItem;
         return null;
     }
+
     private void SetSelected(RezultViewChild childData, Places.Item place)
     {
-        selectedChild = childData;
-        Places.Instance.lastSearchedPlace = place;
+        if (selectedChild == childData)
+            selectedChild = null;
+        else
+        {
+            selectedChild = childData;
+            Places.Instance.lastSearchedPlace = place;
+        }
     }
-
+    private void DestroyPreviousChilds()
+    {
+        if (displayedChilds.Count != 0)
+            foreach (var child in displayedChilds)
+                Destroy(child);
+        displayedChilds = new List<GameObject>();
+    }
     private void ShowMap()
     {
         if (selectedChild != null)
             ViewSwitcher.Instance.ShowView<MapView>();
     }
 
+    private void Sort()
+    {
+        switch (sortingState)
+        {
+            case SortingState.name:
+                sortingText.text = "Name";
+                ++sortingState;
+                break;
+            case SortingState.adress:
+                sortingText.text = "Adress";
+                ++sortingState;
+                break;
+            case SortingState.price:
+                sortingText.text = "Price";
+                ++sortingState;
+                break;
+            case SortingState.distance:
+                sortingText.text = "Distance";
+                sortingState = 0;
+                break;
+        }
+    }
     #endregion
 }
+    

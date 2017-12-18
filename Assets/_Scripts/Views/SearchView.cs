@@ -70,7 +70,7 @@ public class SearchView : View
         displayedChild.GetComponentInChildren<Button>().onClick
             .AddListener(delegate { ToRezultView(item); });
     }
-    IEnumerator SetDishPhoto(string photoLink, GameObject child)
+    private IEnumerator SetDishPhoto(string photoLink, GameObject child)
     {
         WWW www = new WWW(photoLink);
         yield return www;

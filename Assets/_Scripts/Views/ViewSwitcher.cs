@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class ViewSwitcher : MonoBehaviour
 {
@@ -22,11 +23,14 @@ public class ViewSwitcher : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] Transform viewsContainer;
-    [SerializeField] List<GameObject> viewsPrefabs;
+    #region Serializable Variables
+    [SerializeField] private Text logoText;
+    [SerializeField] private Transform viewsContainer;
+    [SerializeField] private List<GameObject> viewsPrefabs;
 
     [SerializeField] private List<View> views;
     [SerializeField] private int startViewIndex;
+    #endregion
 
     private View activeView;
 
@@ -51,10 +55,22 @@ public class ViewSwitcher : MonoBehaviour
             activeView.Hide();
             view.Show();
             activeView = view;
+            SetTopBarLogo();
         }
         else
         {
             Debug.LogWarning("View not found");
         }
+    }
+
+    private void SetTopBarLogo()
+    {
+        logoText.resizeTextForBestFit = true;
+        if (activeView.GetType() == typeof(RezultView) || activeView.GetType() == typeof(DishDescriptionView))
+            logoText.text = Dishes.Instance.lastSearchedDish.name;
+        else if (activeView.GetType() == typeof(MapView))
+            logoText.text = Places.Instance.lastSearchedPlace.name;
+        else
+            logoText.text = "WIEM CO ZJEM";
     }
 }

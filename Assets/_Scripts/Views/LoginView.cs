@@ -44,7 +44,6 @@ public class LoginView : View
     }
     private void CheckLoginData()
     {
-        print("asd");
         foreach (var info in UserInfo.Instance.loginDB)
         {
             if (_login == info.login)

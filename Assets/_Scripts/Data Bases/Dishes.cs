@@ -61,6 +61,7 @@ public class Dishes : MonoBehaviour
     public class Item
     {
         public string name;
+        public string description;
         public bool vege;
         public string photoLink;
         public string _id;
