@@ -37,7 +37,6 @@ GameObject:
   - component: {fileID: 224745523569750700}
   - component: {fileID: 222624237648158672}
   - component: {fileID: 114509290047358022}
-  - component: {fileID: 114954683938865308}
   m_Layer: 5
   m_Name: Map
   m_TagString: Untagged
@@ -85,19 +84,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &114954683938865308
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1812646447886960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ed322e05e67fd7449d388abdd0dfdc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoom: 10
-  center: {x: 50.06166, y: 19.937569}
 --- !u!222 &222624237648158672
 CanvasRenderer:
   m_ObjectHideFlags: 1

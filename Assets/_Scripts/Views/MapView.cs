@@ -49,7 +49,6 @@ public class MapView : View
     #region Private Methods
     private IEnumerator Map()
     {
-        yield return new WaitForSeconds(0.5f);
         mapURL = "https://maps.googleapis.com/maps/api/staticmap"
                 + "?center=" + center.x + "," + center.y + "&zoom=" + zoom
                 + "&markers=color:red|"+ userCoordinates.x + "," + userCoordinates.y 

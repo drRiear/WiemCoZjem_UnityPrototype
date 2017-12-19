@@ -24,7 +24,7 @@ public class SearchView : View
         dishes = Dishes.Instance.dishesRoot;
 
         searchInput = GetComponentInChildren<InputField>();
-        searchInput.onEndEdit.AddListener(delegate { Search(); });
+        searchInput.onValueChange.AddListener(delegate { Search(); });
     }
     private void OnDisable()
     {
@@ -40,7 +40,7 @@ public class SearchView : View
         string searchString = searchInput.text;
 
         foreach (var item in dishes.items)
-            if (item.name.Contains(searchString))
+            if (searchString.Length != 0 && item.name.Contains(searchString))
             {
                 ShowDishes(item);
                 isFound = true;
@@ -74,7 +74,8 @@ public class SearchView : View
     {
         WWW www = new WWW(photoLink);
         yield return www;
-        child.GetComponentInChildren<RawImage>().texture = www.texture;
+        if(child != null)
+                child.GetComponentInChildren<RawImage>().texture = www.texture;
     }
 
     private void ShowNoReultView()

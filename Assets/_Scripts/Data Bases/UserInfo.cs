@@ -24,7 +24,7 @@ public class UserInfo : MonoBehaviour {
 
     public List<LoginData> loginDB;
 
-    public LoginData currentUser;
+    public LoginData currentUser = null;
 
 }
 

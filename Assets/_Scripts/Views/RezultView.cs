@@ -50,6 +50,10 @@ public class RezultView : View
         toMapButton.onClick.AddListener(ShowMap);
         toDescriptionButton.onClick.AddListener(delegate { ViewSwitcher.Instance.ShowView<DishDescriptionView>(); });
     }
+    private void OnDisable()
+    {
+        DestroyPreviousChilds();
+    }
     #endregion
 
     #region Private Methods
